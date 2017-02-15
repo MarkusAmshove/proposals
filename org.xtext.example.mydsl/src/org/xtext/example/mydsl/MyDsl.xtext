@@ -1,0 +1,16 @@
+grammar org.xtext.example.mydsl.MyDsl with org.eclipse.xtext.common.Terminals
+
+generate myDsl "http://www.xtext.org/example/mydsl/MyDsl"
+
+
+Model:
+	variables+=Variable* statements+=Statement* calls+=StatementCall*;
+	
+Variable: 'let' name=ID;
+
+StatementCall: statement=[Statement] '(' parameter+=[Variable]* ')';
+
+Statement: 'Statement' name=ID '(' parameter+=Variable* ')';
+
+terminal ID:
+	'^'? ('a'..'z' | 'A'..'Z' | '-' | '$') ('a'..'z' | 'A'..'Z' | '-' | '0'..'9')+;
